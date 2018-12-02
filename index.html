@@ -1,0 +1,623 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>웹접근성 가이드 - Accessibility Guidelines</title>
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="https://highlightjs.org/static/demo/styles/monokai-sublime.css">
+		<link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
+		<link rel='stylesheet' href='lib/font/devicons/devicons.css'>
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1 style="margin-bottom:60px">
+						a11y 모두를 위한 설계 웹접근성 개선<br>
+						<span style="font-size:30px">- 네비게이션 (카테고리), 레이어팝업 -</span>
+					</h1>
+					<p>2018. 12. 01</p>
+					<p>IT 개발2팀 UI파트 - 김재호</p>
+				</section>
+
+				<section>
+					<h2>The Agenda</h2>
+					<ul>
+						<li></li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Navigation (카테고리)</h2>
+					</section>
+
+					<section>
+						<h3>기존 방식</h3>
+						<p>마우스 오버 시 하위 메뉴 열림, 키보드 초점 이동 시 하위 메뉴 열림</p>
+
+						<iframe width="100%" height="250" src="http://jsfiddle.net/hohoya33/7vynqbh4/embedded/result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+
+						<pre><code class="js">
+$('.ctg_mall_lst').on('mouseenter focusin', '.ctg_top_mn', function(e){ ... });
+                        </code></pre>
+					</section>
+
+					<section>
+						<h3>카테고리 항목이 늘어나면..🤔</h3>
+						<p>스크린리더기에 의존하는 사용자,<br> 마우스를 사용할 수 없는 사용자에게는 유용하지 않음</p>
+						<img width="90%" src="img/category_all.png" alt="">
+					</section>
+
+					<section>
+						<h3>초점이동 → 컨텐츠 탐색을 위한 이동</h3>
+						<p>초점을 이동 하거나 마우스를 올리는 것은<br>항상 기능을 실행하기 위한 의도로 보기 어려움</p>
+						<ul>
+							<li>의도하지 않은 기능 실행</li>
+							<li>의도하지 않은 정보 인식</li>
+							<li>정보의 선택권 보장 X</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>웹 접근성 지침</h3>
+						<table>
+							<colgroup>
+							<col style="width:12%">
+							<col style="width:88%">
+							</colgroup>
+							<thead>
+								<tr>
+									<td>원칙 3</td>
+									<td>이해의 용이성</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>3.1</td>
+									<td>가독성</td>
+								</tr>
+								<tr>
+									<td>3.1.1</td>
+									<td>기본 언어 표시 (주로 사용하는 언어를 명시해야 한다)</td>
+								</tr>
+								<tr>
+									<td style="color:#13DAEC">3.2 </td>
+									<td style="color:#13DAEC">예측 가능성 (콘텐츠의 기능과 실행결과는 예측 가능해야 한다)</td>
+								</tr>
+								<tr>
+									<td style="color:#13DAEC">3.2.1</td>
+									<td style="color:#13DAEC">사용자 요구에 따른 실행 - 사용자가 의도하지 않은 기능 (새 창, 초점 변화 등)은 실행되지 않아야 한다.</td>
+								</tr>
+								<tr>
+									<td>3.3</td>
+									<td>콘텐츠의 논리성 (콘텐츠는 논리적으로 구성해야 한다)</td>
+								</tr>
+								<tr>
+									<td>3.3.1</td>
+									<td>...</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+
+					<section>
+						<h3>예측 가능성</h3>
+						<p>사용자가 의도하지 않는 기능이 자동으로 실행 되지 않도록 개발</p>
+						<ul>
+							<li>초점이동 → 기능 실행 NO</li>
+							<li>Enter 입력 → 하위 메뉴 확장</li>
+							<li>하위 메뉴 확장/축소 시 적절한 피드백 제공</li>
+						</ul>
+					</section>
+
+
+					<section>
+						<h3>WAI-ARIA</h3>
+						<ul>
+							<li><a href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank">W3C WAI-ARIA</a>는 HTML의 접근성 문제를 보완하는 W3C 명세</li>
+							<li>스크린리더 사용자들이 웹 콘텐츠를 쉽게 이용할 수 있도록 새로운 방법을 정의</li>
+							<li>HTML 요소에 role 또는 aria-* 속성을 추가</li>
+							<li>콘텐츠의 역할(roles), 상태(states), 속성(properties) 정보를 스크린리더에 제공</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>WAI-ARIA 참고 사항</h3>
+						<ul>
+							<li>모든 HTML 요소에 무분별하게 사용 금지</li>
+							<li>대부분의 HTML 요소와 속성을 흉내 (WAI-ARIA 사용 최소화)</li>
+							<li>사용하기에 앞서 HTML을 의미 있게 사용했는지 충분히 검토</li>
+						</ul>
+						<pre><code class="html">
+<!-- Better: ARIA 역할과 유사한 의미를 가진 고유 HTML 요소를 사용 -->
+<nav>...</nav>
+
+<!-- Good -->
+<div role="navigation">...</div>
+
+<!-- Bad -->
+<nav role="navigation">...</nav>
+                        </code></pre>
+					</section>
+
+
+					<section>
+						<h2>SSG 통합 카테고리 개선</h2>
+					</section>
+
+					<section>
+						<h3>통합 카테고리 버튼</h3>
+						<ul>
+							<li><span style="color:#13daec">aria-haspopup="true"</span> 요소에 팝업 컨텍스트 메뉴 또는 하위 메뉴가 있음</li>
+							<li><span style="color:#13daec">aria-expanded="true|false"</span> 요소가 제어하는 ​​대상이 현재 확장 또는 축소 상태를 나타냄</li>
+						</ul>
+
+						<pre><code class="html">
+<button aria-expanded="false" aria-haspopup="true">
+    통합 카테고리 보기
+</button>
+                        </code></pre>
+
+                        <pre><code class="js">
+// 레이어 열기
+$('button').attr('aria-expanded', 'true');
+
+// 레이어 닫기
+$('button').attr('aria-expanded', 'false');
+
+                        </code></pre>
+					</section>
+
+					<section>
+						<h3>VoiceOver 테스트</h3>
+						<iframe width="100%" height="570" src="http://jsfiddle.net/hohoya33/2mfs3a41/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+					</section>
+
+					<section>
+						<h3>의미에 맞는 HTML 작성</h3>
+						<ul>
+							<li>a 태그는 Enter 키만으로 실행</li>
+							<li>button 태그는 Enter, Space 키로 실행 가능</li>
+							<li>스크린리더 사용자는 a 요소로부터 '버튼' 설명을 듣고 Space 키 사용 시 혼란</li>
+							<li>올바른 HTML의 선택은 사용자 경험과 접근성 측면에서 모두 중요</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>통합 카테고리 레이어</h3>
+						<ul>
+							<li><span style="color:#13daec">aria-hidden="true|false"</span> 화면에서 숨기면 true, 화면에 표시하면 false </li>
+							<li><span style="color:#13daec">true</span> 값을 가지면 스크린리더 접근이 불가능 (포커스를 차단하지 않음)</li>
+						</ul>
+
+						<pre><code class="html">
+<div class="ctg_total_layer" aria-hidden="true" style="display:none">
+	...
+</div>
+                        </code></pre>
+
+                        <pre><code class="js">
+// 레이어 열림
+$('.ctg_total_layer').show().attr('aria-hidden', 'false');
+
+// 레이어 닫힘
+$('.ctg_total_layer').hide().attr('aria-hidden', 'true');
+                        </code></pre>
+					</section>
+
+					<section>
+						<h3>VoiceOver 테스트</h3>
+						<iframe width="100%" height="500" src="http://jsfiddle.net/hohoya33/37ja6u5o/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+					</section>
+
+
+					<section>
+						<h3>카테고리 메뉴 (depth. 1)</h3>
+						<ul>
+							<li><span style="color:#13daec">aria-label="string"</span> 간결한 설명</li>
+							<li><span style="color:#13daec">role="navigation"</span> 연결된 페이지를 탐색하기 위한 링크 모음</li>
+							<li>속성을 사용하기 전 HTML5 &lt;nav&gt; 요소를 먼저 고려</li>
+						</ul>
+
+						<pre><code class="html">
+<ul class="ctg_mall_lst" role="navigation" aria-label="SSG 통합카테고리">
+	<li class="ctg_top_mn">
+		<a href="http://www.ssg.com" class="ctg_top_lnk">SSG.COM</a>
+	</li>
+</ul>
+                        </code></pre>
+					</section>
+
+
+					<section>
+						<h3>카테고리 메뉴 이슈</h3>
+						<ul>
+							<li>두 가지 용도로 사용되는 메뉴</li>
+							<li>해당 메뉴 클릭 시 링크 이동, 마우스 오버 시 하위 메뉴 열림</li>
+							<li>초점 이동 후, Enter 키 입력 시 링크 이동 되는 문제 (하위 메뉴 접근 불가)</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>해결 방법</h3>
+						<ul>
+							<li>하위 메뉴 열기/닫기 버튼을 별도로 추가 (기본 숨김)</li>
+							<li>키보드 포커스 접근 시(탭 키 입력) 버튼 노출</li>
+						</ul>
+					</section>
+
+
+					<section>
+						<h3>하위 메뉴 보기 버튼 추가</h3>
+						<ul>
+							<li>a 태그 aria-label 몰 바로가기 설명 추가</li>
+							<li>키보드 포커스 접근 시, 하위 메뉴 보기 버튼 활성화</li>
+						</ul>
+
+						<pre><code class="html">
+<li class="ctg_top_mn">
+	<a aria-label="SSG.COM 바로가기" href="http://www.ssg.com" class="ctg_top_lnk">SSG.COM</a>
+	<!-- 하위 메뉴가 있으면 버튼 추가 -->
+	<button style="display:none" aria-expanded="false" class="ctg_a11y_btn">
+		<span class="blind">SSG.COM 하위 메뉴</span>
+	</button>
+</li>
+                        </code></pre>
+
+                        <pre><code class="js">
+$('.ctg_mall_lst').on('focusin', '.ctg_top_mn', function(e){
+	var welTarget = $(e.currentTarget);
+	welTarget.find('>.ctg_a11y_btn').show();
+});
+                        </code></pre>
+					</section>
+
+					<section>
+						<h3>VoiceOver 테스트</h3>
+						<iframe width="100%" height="500" src="http://jsfiddle.net/hohoya33/dfewLs2x/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+					</section>
+
+					<section>
+						<h3>카테고리 하위 메뉴 (depth. 2)</h3>
+						<ul>
+							<li><span style="color:#13daec">role="menubar"</span> 일반적으로 가로로 표시되는 메뉴 모음</li>
+							<li><span style="color:#13daec">role="menu"</span> 사용자에게(실행) 선택 목록을 제공하는 유형 (세로방향)</li>
+							<li><span style="color:#13daec">role="menuitem"</span> menubar 또는 menu 모음에 포함된 옵션 항목</li>
+						</ul>
+
+						<pre><code class="html">
+<div class=" ctg_sub_area" aria-hidden="true">
+	<ul class="ctg_sub_lst" role="menu">
+		<li class="ctg_sub_mn">
+			<a role="menuitem" aria-label="패션 바로가기" href="#" class="ctg_sub_lnk">패션</a>
+			<button aria-expanded="false" class="ctg_a11y_btn">
+				<span class="blind">패션 하위 메뉴 5개의 항목</span>
+			</button>
+		</li>
+	</ul>
+</div>
+                        </code></pre>
+					</section>
+
+
+					<section>
+						<h3>하위 메뉴 보기 버튼 이벤트</h3>
+                        <pre><code class="js">
+$('.ctg_mall_lst').on('click', '.ctg_a11y_btn', function(e){
+	var welTarget = $(e.currentTarget);
+	var welParentList = welTarget.parent();
+
+	if (welTarget.hasClass('on')) { //축소
+		welParentList.find('>.ctg_sub_area').attr('aria-hidden', 'true');
+		welTarget.removeClass('on').attr('aria-expanded', 'false');
+	} else { //확장
+		welParentList.find('>.ctg_sub_area').attr('aria-hidden', 'false');
+		welParentList.siblings().find('.ctg_a11y_btn').removeClass('on').attr('aria-expanded', 'false').hide();
+		welTarget.addClass('on').attr('aria-expanded', 'true');
+	}
+});
+                        </code></pre>
+					</section>
+
+
+					<section>
+						<h3>VoiceOver 테스트</h3>
+						<iframe width="100%" height="400" src="http://jsfiddle.net/hohoya33/cqh5v13n/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+					</section>
+
+
+					<section>
+						<h3>Esc 입력 → 메뉴 닫기</h3>
+
+                        <pre><code class="js">
+$('.ctg_total_layer').on('keydown.a11y', function(e){
+	var sKeyCode = e.sKeyCode || e.which;
+	var bEscKey = sKeyCode === 27;
+
+	if (bEscKey) {
+		var aActiveMenu = $('.ctg_mall_lst').find('li.on');
+		var nActive = aActiveMenu.length;
+		if (nActive) { //활성화된 메뉴 닫기
+			var welCurrentMenu = $(aActiveMenu.get(nActive - 1));
+			welCurrentMenu.removeClass('on');
+			welCurrentMenu.find('.ctg_a11y_btn').removeClass('on').attr('aria-expanded', 'false');
+			welCurrentMenu.find('>a').focus();
+		} else { //카테고리 레이어 닫기
+			$('.ctg_total_layer').hide().attr('aria-hidden', 'true');
+			$('.ctg_open_btn').removeClass('on').attr('aria-expanded', 'false').focus();
+		}
+	}
+});
+                        </code></pre>
+					</section>
+
+					<section>
+						<h3>최종 결과물</h3>
+						<iframe width="100%" height="300" src="http://jsfiddle.net/hohoya33/3dyozftc/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+					</section>
+
+				</section>
+
+
+				<section>
+					<section>
+						<h2>Modals (레이어 팝업)</h2>
+					</section>
+
+					<section>
+						<h2>기존 방식</h2>
+						<ul>
+							<li>레이어 팝업 열림 → 레이어 팝업에 집중 하기 위해 배경을 어둡게 만듬</li>
+							<li>마우스 사용자는 레이어 팝업이 열려 있는 동안 레이어팝업 이외의 나머지 부분과 상호 작용할 수 없음</li>
+						</ul>
+
+					</section>
+
+					<section>
+						<iframe width="100%" height="600" src="http://jsfiddle.net/hohoya33/tegyap1x/embedded/result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+					</section>
+
+
+
+
+
+
+
+
+					<section>
+
+						<h2>기본 마크업</h2>
+						<h2>구현 세부 사항</h2>
+						<p>buttons는 대화 상자를 열고 닫는 데 사용되는 반면, 오버레이 및 모달 컨테이너는 내용을 보유</p>
+						<p>aria-controls 및 id속성은 트리거가 각각의 모달 콘텐츠를 제어하고 있음을 명확히합니다.</p>
+						<p>모달은 기본적으로 표시되지 않으므로 aria-hidden="true" </p>
+
+<!--
+modal 컨테이너에 role="dialog"를 지정하면 구성 요소의 기능이 보조 기술을 지원합니다.
+
+ 내용이 경고, 오류 또는 경고를 나타내는 경우, 계속하기 전에 사용자의 즉각적인 응답이 필요한 내용을 나타내기 위해 role="arertdialog"를 대신 사용할 수 있습니다.
+
+ 모달의 바로 가기 하위 노드에는 role="document"라는 요소가 필요합니다.
+ 이를 통해 보조 기술은 문서 검색 모드로 전환되어 모달 콘텐츠에 대한 완전한 액세스를 제공합니다.
+
+ 모달의 직접적인 자식 노드는를 가진 요소를 필요로합니다 role="document".
+ 이렇게하면 보조 기술이 문서 탐색 모드로 전환하여 모달 콘텐츠에 대한 완전한 액세스를 제공 할 수 있습니다.
+
+
+모달 컨테이너 role="dialog"는 구성 요소의 기능을 보조 기술에 전달합니다.
+콘텐츠가 경고, 오류 또는 경고를 나타내는 경우 role="alertdialog" 계속 진행하기 전에 사용자가 즉각적인 응답을 요구하는 내용을 표시하는데 사용
+
+대화 상자 구현 - 사용자 중심
+여는 경우 모달 내 첫 번째 포커싱 가능한 항목에 포커스가 적용됩니다.
+동시에 Esc키와 오버레이 / 닫기 버튼 클릭 이벤트는 사용자가 대화 상자를 닫을 수 있도록 바인딩됩니다.
+대화 상자가 표시되면 tab키를 사용 하면 주변 페이지의 요소에 포커스가 적용되지 않도록 모달 내의 요소간에 포커스가 유지됩니다.
+마지막으로 문서에서 사용자의 위치를 ​​유지하기 위해 모달을 닫을 때 원래 트리거로 포커스를 되돌릴 수 있습니다.
+
+
+
+aria-labelledby 보조 기술 대화 상자의 제목을 명확하게 정의 하려면 모달 내의 제목과 관련 특성이 모달에 필요합니다.
+보조 기술에 대한 대화 상자의 제목을 명확하게 정의하려면 모달에서 모달과 관련 aria-labelledby 지정 특성 내의 제목이 필요합니다. -->
+
+
+                        <pre><code class="html">
+<button class="modal-open" aria-controls="modal">Open</button>
+<div class="modal" id="modal">
+	<div aria-labelledby="modal-title">
+		<div role="document">
+			<h2 id="modal-title">Title</h2>
+			<button class="dmodal-close">Close</button>
+		</div>
+	</div>
+</div>
+                        </code></pre>
+					</section>
+
+
+
+
+					<section>
+						<h2>tabindex 포커스 제어</h2>
+						<p>요소처럼 p, h2또는 div기본적으로 초점을 맞출 수 없음. tabindex 속성을 추가하여 포커스 가능</p>
+						<p>tabindex HTML 속성을 사용하여 요소의 탭 위치를 설정</p>
+
+						<ul>
+							<li>값이 음수이면 요소는 포커스 가능. 하지만 키보드를 통해 접근불가. 자바스크립트 focus() 메소드</li>
+							<li>0 보다 큰 tbaindex 값 일종의 안티패턴으로 간주</li>
+						</ul>
+
+<!-- Chrome DevTools Lighthouse
+tabindex > 0 will be on top of the tab order
+
+그 요소가 모든것을 뛰어 넘는 것임을 의미 일반적으로 당신은 아마 실제로 사용하고 싶지 않습니다.
+ 보다 큰 tbaindex 값 일종의 안티패턴으로 간주
+
+정수값을 tabindex가진 속성을 추가하여 포커스 가능하게 만들 수 있습니다.
+값이 음수이면 요소는 포커스 가능 (e.g. with JavaScript focus())하지만 키보드를 통해 도달 할 수 없습니다.
+보다 큰 값을 사용할 수도 있지만 자연스러운 탭 순서를 변경하고 anti-pattern으로 간주 -->
+
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/hohoya33/kmjsd8qb/38/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+					</section>
+
+					<section>
+						<h2>tabindex  올바른 사용법</h2>
+						<ul>
+							<li>tabindex="-1": 스크립트를 사용하여 요소의 포커스를 설정할 수 있지만 페이지의 탭 순서는 지정 하지 않습니다 . 이것은 스크립트를 통해 또는 사용자 작업 외부에서 업데이트 한 내용으로 포커스를 이동해야 할 때 유용합니다.</li>
+							<li>tabindex="0": 요소를 가져와 포커스를 만들게됩니다. 요소의 위치를 ​​탭 순서로 설정하지 않고 사용자가 DOM을 사용하여 위치에 따라 결정된 순서대로 요소를 포커스 할 수 있습니다.</li>
+							<li>tabindex="1" (또는 임의의 값> 0): tabindex="1"또는 0보다 큰 값 (또는 양수 값)을 설정하지 마십시오 .</li>
+						</ul>
+
+					</section>
+
+					<section>
+						<h2>레이어팝업 초점 맞추기</h2>
+						<p>모달 윈도우를 포커스 가능하게 만들고 JavaScript로 포커스를 지정</p>
+
+                        <pre><code class="html">
+<!-- tabindex="0" 추가 -->
+<div class="modal" id="modal" tabindex="0">
+
+</div>
+                        </code></pre>
+
+                        <pre><code class="js">
+//focus() 메서드를 사용하여 포커스 설정
+function showModal(){
+  var modal = document.getElementById('modal');
+  modal.focus();
+  //...
+}
+                        </code></pre>
+					</section>
+
+					<section>
+						<h2>레이어팝업 초점 맞추기</h2>
+						<p>모달 윈도우를 포커스 가능하게 만들고 JavaScript로 포커스를 지정</p>
+
+                        <pre><code class="html">
+<!-- tabindex="0" 추가 -->
+<div class="modal" id="modal" tabindex="0">
+
+</div>
+                        </code></pre>
+                        <pre><code class="js">
+// focus() 메서드를 사용하여 포커스 설정
+function showModal() {
+  var modal = document.getElementById('modal');
+  modal.focus();
+  //...
+}
+                        </code></pre>
+					</section>
+
+
+					<section>
+						<p>현재 포커스가있는 요소: document.activeElement</p>
+
+Esc 닫기 버튼을 눌러 모달창을 닫으면 초점이 손실됩니다.
+이상적으로 모달창을 열기전의 버튼으로 포커스가 위치
+마지막 포커스요소를 변수에 저장
+                        <pre><code class="js">
+// 마지막 포커스가 있는요소를 저장하기위한 변수
+var lastFocusedElement;
+function showModal() {
+  // 마지막 포커스된 요소 저장
+  lastFocusedElement = document.activeElement;
+  var modal = document.getElementById (modalID);
+  modal.focus();
+}
+                        </code></pre>
+					</section>
+
+					<section>
+						<h2>레이어팝업 초점 반환</h2>
+						<p>이제 버튼에 대한 참조가 있으므로 모달 창을 닫을 때 다시 초점을 맞출 수 있습니다.</p>
+
+                        <pre><code class="js">
+function removeModal() {
+  //마지막 포커스를 얻은 요소로 포커스를 반환
+  lastFocusedElement.focus();
+}
+                        </code></pre>
+					</section>
+
+
+
+					<section>
+						<h2>키보드 트랩</h2>
+						<p>접근성은 현재 나아졌지만 여전히 개선의 여지가 있습니다.</p>
+						<p>모달 창이 열릴 때 포커스를 유지하는 것이 좋습니다. 지금은 여전히 ​​모달에서 탈출 할 수 있습니다. </p>
+						<p>포커스는 활성 상태 인 동안 모달 창에 유지됩니다.</p>
+
+                        <pre><code class="js">
+var firstTabStop = focusableElements[0];
+var lastTabStop = focusableElements[focusableElements.length - 1];
+
+function trapTabKey(e) {
+    // Check for TAB key press
+    if (e.keyCode === 9) {
+      // SHIFT + TAB
+      if (e.shiftKey) {
+        if (document.activeElement === firstTabStop) {
+          e.preventDefault();
+          lastTabStop.focus();
+        }
+
+      // TAB
+      } else {
+        if (document.activeElement === lastTabStop) {
+          e.preventDefault();
+          firstTabStop.focus();
+        }
+      }
+    }
+  }
+                        </code></pre>
+					</section>
+
+
+
+
+
+				</section>
+
+
+
+
+
+
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				history: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
