@@ -33,7 +33,7 @@
 						<span style="font-size:30px">카테고리, 레이어팝업</span>
 					</h1>
 					<p>2018. 12. 11</p>
-					<p>IT 개발2팀 UI파트 - 김재호</p>
+					<p>IT 개발2팀 UI파트</p>
 				</section>
 
 				<section>
@@ -51,20 +51,20 @@
 
 					<section>
 						<h3>기존 방식</h3>
-						<p>마우스 오버 시 하위 메뉴 열림, 키보드 초점 이동 시 하위 메뉴 열림</p>
+						<p>마우스오버 시 하위 메뉴 열림<br>키보드만으로 조작하기 위해 초점 이동 시 동일하게 구현</p>
 
-						<iframe width="100%" height="250" src="https://jsfiddle.net/hohoya33/7vynqbh4/embedded/result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+						<iframe width="100%" height="300" src="https://jsfiddle.net/hohoya33/7vynqbh4/embedded/result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 
 						<pre><code class="js">
 $('.ctg_mall_lst').on('mouseenter focusin', '.ctg_top_mn', function(e){
-	// ...
+	// open sub menu
 });
                         </code></pre>
 					</section>
 
 					<section>
 						<h3>카테고리 항목이 늘어나면..🤔</h3>
-						<p>스크린리더기에 의존하는 사용자,<br> 마우스를 사용할 수 없는 사용자에게는 유용하지 않음</p>
+						<p>스크린리더기에 의존하는 사용자<br>마우스를 사용할 수 없는 키보드 사용자는 이러한 기능이 유용할까?</p>
 						<img width="90%" src="img/category_all.png" alt="">
 					</section>
 
@@ -121,7 +121,7 @@ $('.ctg_mall_lst').on('mouseenter focusin', '.ctg_top_mn', function(e){
 					</section>
 
 					<section>
-						<h3>예측 가능성</h3>
+						<h3>접근성 향상</h3>
 						<p>사용자가 의도하지 않는 기능이 자동으로 실행 되지 않도록 개발</p>
 						<ul>
 							<li>초점이동 → 기능 실행 NO</li>
@@ -135,18 +135,18 @@ $('.ctg_mall_lst').on('mouseenter focusin', '.ctg_top_mn', function(e){
 						<h3>WAI-ARIA</h3>
 						<ul>
 							<li><a href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank">W3C WAI-ARIA</a>는 HTML의 접근성 문제를 보완하는 W3C 명세</li>
-							<li>스크린리더 사용자들이 웹 콘텐츠를 쉽게 이용할 수 있도록 새로운 방법을 정의</li>
-							<li>HTML 요소에 role 또는 aria-* 속성을 추가</li>
-							<li>콘텐츠의 역할(roles), 상태(states), 속성(properties) 정보를 스크린리더에 제공</li>
+							<li>스크린리더 사용자들이 웹 콘텐츠를 쉽게 이용할 수 있도록 방법을 정의</li>
+							<li>HTML 요소에 <span style="color:#13DAEC">role</span> 또는 <span style="color:#13DAEC">aria-*</span> 속성을 추가</li>
+							<li>콘텐츠의 역할(roles), 상태(states), 속성(properties) 정보를 보조기기에 제공</li>
 						</ul>
 					</section>
 
 					<section>
 						<h3>WAI-ARIA 참고 사항</h3>
 						<ul>
-							<li>모든 HTML 요소에 무분별하게 사용 금지</li>
-							<li>대부분의 HTML 요소와 속성을 흉내 (WAI-ARIA 사용 최소화)</li>
-							<li>사용하기에 앞서 HTML을 의미 있게 사용했는지 충분히 검토</li>
+							<li>HTML 요소에 무분별한 사용 지양</li>
+							<li>대부분 HTML 요소와 속성을 의미 (사용 최소화)</li>
+							<li>사용하기 앞서 HTML5 요소로 대체 할 수 있는지 충분히 검토</li>
 						</ul>
 						<pre><code class="html">
 <!-- Better: ARIA 역할과 유사한 의미를 가진 고유 HTML 요소를 사용 -->
@@ -163,26 +163,27 @@ $('.ctg_mall_lst').on('mouseenter focusin', '.ctg_top_mn', function(e){
 
 					<section>
 						<h3>카테고리 버튼</h3>
-						<ul>
-							<li><span style="color:#13daec">aria-haspopup="true"</span> 요소에 팝업 컨텍스트 메뉴 또는 하위 메뉴가 있음</li>
-							<li><span style="color:#13daec">aria-expanded="true|false"</span> 요소가 제어하는 ​​대상이 현재 확장 또는 축소 상태를 나타냄</li>
-						</ul>
+						<p><span style="color:#13daec">aria-haspopup="true"</span> 요소에 팝업 또는 하위 메뉴(컨텍스트 메뉴)를 나타냄</p>
 
 						<pre><code class="html">
-<button aria-expanded="false" aria-haspopup="true">
-    통합 카테고리 보기
+<button aria-haspopup="true" aria-expanded="false">
+	통합 카테고리 보기
 </button>
                         </code></pre>
+					</section>
+
+
+					<section>
+						<p><span style="color:#13daec">aria-expanded="true|false</span> 해당 메뉴가 열렸는지 닫혔는지 여부를 알 수 있음</p>
+						<img src="img/aria_expanded.png" width="60%" alt="">
 
                         <pre><code class="js">
-// 레이어 열기
-$('button').attr('aria-expanded', 'true');
+$('button').attr('aria-expanded', 'true'); // 레이어 열기
 
-// 레이어 닫기
-$('button').attr('aria-expanded', 'false');
-
+$('button').attr('aria-expanded', 'false'); // 레이어 닫기
                         </code></pre>
 					</section>
+
 
 					<section>
 						<h3>VoiceOver 테스트</h3>
@@ -190,7 +191,7 @@ $('button').attr('aria-expanded', 'false');
 					</section>
 
 					<section>
-						<h3>의미에 맞는 HTML 작성</h3>
+						<h3>의미에 맞는 HTML 사용</h3>
 						<ul>
 							<li>a 요소는 Enter 키만으로 실행</li>
 							<li>button 요소는 Enter, Space 키로 실행 가능</li>
@@ -258,7 +259,7 @@ $('.ctg_total_layer').hide().attr('aria-hidden', 'true');
 						<h3>해결 방법</h3>
 						<ul>
 							<li>하위 메뉴 열기/닫기 버튼을 별도로 추가 (기본 숨김)</li>
-							<li>키보드 포커스 접근 시(탭 키 입력) 버튼 노출</li>
+							<li>키보드 포커스 접근 시 버튼 노출 (탭 키 입력)</li>
 						</ul>
 					</section>
 
@@ -266,7 +267,7 @@ $('.ctg_total_layer').hide().attr('aria-hidden', 'true');
 					<section>
 						<h3>하위 메뉴 보기 버튼 추가</h3>
 						<ul>
-							<li>a 태그 aria-label 몰 바로가기 설명 추가</li>
+							<li>a 태그 <span style="color:#13daec">aria-label</span> 몰 바로가기 설명 추가</li>
 							<li>키보드 포커스 접근 시, 하위 메뉴 보기 버튼 활성화</li>
 						</ul>
 
@@ -315,27 +316,6 @@ $('.ctg_mall_lst').on('focusin', '.ctg_top_mn', function(e){
                         </code></pre>
 					</section>
 
-
-					<section>
-						<h3>하위 메뉴 보기 버튼 이벤트</h3>
-                        <pre><code class="js">
-$('.ctg_mall_lst').on('click', '.ctg_a11y_btn', function(e){
-	var welTarget = $(e.currentTarget);
-	var welParentList = welTarget.parent();
-
-	if (welTarget.hasClass('on')) { //축소
-		welParentList.find('>.ctg_sub_area').attr('aria-hidden', 'true');
-		welTarget.removeClass('on').attr('aria-expanded', 'false');
-	} else { //확장
-		welParentList.find('>.ctg_sub_area').attr('aria-hidden', 'false');
-		welParentList.siblings().find('.ctg_a11y_btn').removeClass('on').attr('aria-expanded', 'false').hide();
-		welTarget.addClass('on').attr('aria-expanded', 'true');
-	}
-});
-                        </code></pre>
-					</section>
-
-
 					<section>
 						<h3>VoiceOver 테스트</h3>
 						<iframe width="100%" height="400" src="https://jsfiddle.net/hohoya33/cqh5v13n/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
@@ -343,10 +323,10 @@ $('.ctg_mall_lst').on('click', '.ctg_a11y_btn', function(e){
 
 
 					<section>
-						<h3>Esc 입력 → 메뉴 닫기</h3>
-
+						<h3>메뉴 닫기 (Esc key)</h3>
+						<p>사용자가 키보드를 통해 메뉴를 닫을 수 있도록 기능 추가</p>
                         <pre><code class="js">
-$('.ctg_total_layer').on('keydown.a11y', function(e){
+$('.ctg_total_layer').on('keydown', function(e){
 	if (e.keyCode === 27) { // ESC
 		var aActiveMenu = $('.ctg_mall_lst').find('li.on');
 		var nActive = aActiveMenu.length;
@@ -356,7 +336,6 @@ $('.ctg_total_layer').on('keydown.a11y', function(e){
 			welCurrentMenu.removeClass('on');
 			welCurrentMenu.find('.ctg_a11y_btn').removeClass('on').attr('aria-expanded', 'false');
 			welCurrentMenu.find('>a').focus();
-
 		} else { //카테고리 레이어 닫기
 			$('.ctg_total_layer').hide().attr('aria-hidden', 'true');
 			$('.ctg_open_btn').removeClass('on').attr('aria-expanded', 'false').focus();
