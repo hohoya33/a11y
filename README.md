@@ -46,12 +46,12 @@ $('.ctg_mall_lst').on('mouseenter focusin', '.ctg_top_mn', function(e){
             <td>기본 언어 표시 (주로 사용하는 언어를 명시해야 한다)</td>
         </tr>
         <tr>
-            <td style="color:#13DAEC">3.2 </td>
-            <td style="color:#13DAEC">예측 가능성 (콘텐츠의 기능과 실행결과는 예측 가능해야 한다)</td>
+            <td style="color:#13DAEC">**3.2**</td>
+            <td style="color:#13DAEC">**예측 가능성 (콘텐츠의 기능과 실행결과는 예측 가능해야 한다)**</td>
         </tr>
         <tr>
-            <td style="color:#13DAEC">3.2.1</td>
-            <td style="color:#13DAEC">사용자 요구에 따른 실행 - 사용자가 의도하지 않은 기능 (새 창, 초점 변화 등)은 실행되지 않아야 한다.</td>
+            <td style="color:#13DAEC">**3.2.1**</td>
+            <td style="color:#13DAEC">**사용자 요구에 따른 실행 - 사용자가 의도하지 않은 기능 (새 창, 초점 변화 등)은 실행되지 않아야 한다.**</td>
         </tr>
         <tr>
             <td>3.3</td>
