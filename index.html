@@ -368,7 +368,7 @@ $('.ctg_total_layer').on('keydown.a11y', function(e){
 
 					<section>
 						<h3>최종 결과물</h3>
-						<iframe width="100%" height="300" src="https://jsfiddle.net/hohoya33/3dyozftc/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+						<iframe width="100%" height="400" src="https://jsfiddle.net/hohoya33/3dyozftc/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 					</section>
 
 				</section>
@@ -520,21 +520,20 @@ function hideModal() {
 
 					<section>
 						<h2>내부에서 포커스 트랩</h2>
-						<p>레이어 팝업 닫지 않으면 포커스가 밖으로 나갈 수 없도록<br>레이어 팝업 내부에서 앞뒤로(tab/shift + tab) 포커스 트랩</p>
+						<p>열린 상태에서 포커스가 밖으로 나갈 수 없도록<br>레이어 팝업 내부에서 앞뒤로(tab/shift + tab) 포커스 트랩</p>
 					</section>
-
 
 					<section>
                         <pre><code class="js">
 function showModal() {
 	// ...
-	// 활성화 되는 동안 keyup 이벤트
+	// 활성화 되는 동안 keyup 이벤트, 닫기 시 이벤트 제거
 	$('#quick_view').on('keyup', trapTabKey);
 }
 function trapTabKey(e) {
 	var aFocusable = $('#quick_view').find('*').filter('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]');
-	var firstTabStop = aFocusable[0]; // 첫번째 요소
-	var lastTabStop = aFocusable[aFocusable.length - 1]; // 마지막 요소
+	var firstTabStop = aFocusable[0]; // 첫번째 포커스 요소
+	var lastTabStop = aFocusable[aFocusable.length - 1]; // 마지막 포커스 요소
 
 	if (e.keyCode === 9) {
 		if (e.shiftKey) { // SHIFT + TAB
@@ -553,15 +552,18 @@ function trapTabKey(e) {
 function trapTabKey(e) {
 	// ...
 	if (e.keyCode === 9) {
+		// 포커스 가능 요소가 없으면
+		if (!aFocusable.length) { e.preventDefault(); }
+
 		if (e.shiftKey) { // SHIFT + TAB
 			if (document.activeElement === firstTabStop) {
 				e.preventDefault();
-				lastTabStop.focus();
+				lastTabStop.focus(); // 마지막 요소로 이동
 			}
 		} else { // TAB
 			if (document.activeElement === lastTabStop) {
 				e.preventDefault();
-				firstTabStop.focus();
+				firstTabStop.focus(); // 첫번째 요소로 이동
 			}
 		}
 	}
@@ -572,7 +574,7 @@ function trapTabKey(e) {
 
 					<section>
 						<h2>레이어 팝업 닫기 (Esc key)</h2>
-						<p>열려있을 때 사용자가 키보드를 통해 레이어 팝업을 쉽게 닫을 수 있도록 기능 추가</p>
+						<p>사용자가 키보드를 통해 레이어 팝업을 쉽게 닫을 수 있도록 기능 추가</p>
                         <pre><code class="js">
 function trapTabKey(e) {
 	// ...

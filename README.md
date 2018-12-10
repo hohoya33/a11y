@@ -66,7 +66,6 @@ $('.ctg_mall_lst').on('mouseenter focusin', '.ctg_top_mn', function(e){
 
 ## 예측 가능성 (사용자 요구에 따른 실행)
 초점을 이동 하거나 마우스를 올리는 것은 항상 기능을 실행하기 위한 의도로 보기 어려움
-
 사용자가 의도하지 않는 기능이 자동으로 실행 되지 않도록 개발
 
 - 초점이동 → 기능 실행 NO
@@ -347,8 +346,8 @@ function hideModal() {
 ```js
 function showModal() {
     // ...
-    // 활성화 되는 동안 keyup 이벤트
-    $('#quick_view').on('keyup', trapTabKey);
+    // 활성화 되는 동안 keydown 이벤트 추가, 닫기 시 이벤트 제거
+    $('#quick_view').on('keydown', trapTabKey);
 }
 function trapTabKey(e) {
     var aFocusable = $('#quick_view').find('*').filter('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]');
