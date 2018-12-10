@@ -23,34 +23,42 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
+					<span style="height:4.5em;width:4.5em;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background-color:#000">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:100%;fill:#fff">
+							<path d="M12,2c1.1,0,2,0.9,2,2s-0.9,2-2,2s-2-0.9-2-2S10.9,2,12,2z M21,9h-6v13h-2v-6h-2v6H9V9H3V7h18V9z"></path>
+						</svg>
+					</span>
 					<h1 style="margin-bottom:60px">
-						a11y 모두를 위한 설계 웹접근성 개선<br>
-						<span style="font-size:30px">- 네비게이션 (카테고리), 레이어팝업 -</span>
+						#a11y 웹접근성 개선<br>
+						<span style="font-size:30px">카테고리, 레이어팝업</span>
 					</h1>
-					<p>2018. 12. 01</p>
+					<p>2018. 12. 11</p>
 					<p>IT 개발2팀 UI파트 - 김재호</p>
 				</section>
 
 				<section>
 					<h2>The Agenda</h2>
 					<ul>
-						<li></li>
+						<li>카테고리 (Navigation)</li>
+						<li>레이어 팝업 (Modals)</li>
 					</ul>
 				</section>
 
 				<section>
 					<section>
-						<h2>Navigation (카테고리)</h2>
+						<h2>카테고리 (Navigation)</h2>
 					</section>
 
 					<section>
 						<h3>기존 방식</h3>
 						<p>마우스 오버 시 하위 메뉴 열림, 키보드 초점 이동 시 하위 메뉴 열림</p>
 
-						<iframe width="100%" height="250" src="http://jsfiddle.net/hohoya33/7vynqbh4/embedded/result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+						<iframe width="100%" height="250" src="https://jsfiddle.net/hohoya33/7vynqbh4/embedded/result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 
 						<pre><code class="js">
-$('.ctg_mall_lst').on('mouseenter focusin', '.ctg_top_mn', function(e){ ... });
+$('.ctg_mall_lst').on('mouseenter focusin', '.ctg_top_mn', function(e){
+	// ...
+});
                         </code></pre>
 					</section>
 
@@ -154,11 +162,7 @@ $('.ctg_mall_lst').on('mouseenter focusin', '.ctg_top_mn', function(e){ ... });
 
 
 					<section>
-						<h2>SSG 통합 카테고리 개선</h2>
-					</section>
-
-					<section>
-						<h3>통합 카테고리 버튼</h3>
+						<h3>카테고리 버튼</h3>
 						<ul>
 							<li><span style="color:#13daec">aria-haspopup="true"</span> 요소에 팝업 컨텍스트 메뉴 또는 하위 메뉴가 있음</li>
 							<li><span style="color:#13daec">aria-expanded="true|false"</span> 요소가 제어하는 ​​대상이 현재 확장 또는 축소 상태를 나타냄</li>
@@ -182,21 +186,21 @@ $('button').attr('aria-expanded', 'false');
 
 					<section>
 						<h3>VoiceOver 테스트</h3>
-						<iframe width="100%" height="570" src="http://jsfiddle.net/hohoya33/2mfs3a41/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+						<iframe width="100%" height="570" src="https://jsfiddle.net/hohoya33/2mfs3a41/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 					</section>
 
 					<section>
 						<h3>의미에 맞는 HTML 작성</h3>
 						<ul>
-							<li>a 태그는 Enter 키만으로 실행</li>
-							<li>button 태그는 Enter, Space 키로 실행 가능</li>
+							<li>a 요소는 Enter 키만으로 실행</li>
+							<li>button 요소는 Enter, Space 키로 실행 가능</li>
 							<li>스크린리더 사용자는 a 요소로부터 '버튼' 설명을 듣고 Space 키 사용 시 혼란</li>
 							<li>올바른 HTML의 선택은 사용자 경험과 접근성 측면에서 모두 중요</li>
 						</ul>
 					</section>
 
 					<section>
-						<h3>통합 카테고리 레이어</h3>
+						<h3>카테고리 레이어</h3>
 						<ul>
 							<li><span style="color:#13daec">aria-hidden="true|false"</span> 화면에서 숨기면 true, 화면에 표시하면 false </li>
 							<li><span style="color:#13daec">true</span> 값을 가지면 스크린리더 접근이 불가능 (포커스를 차단하지 않음)</li>
@@ -219,7 +223,7 @@ $('.ctg_total_layer').hide().attr('aria-hidden', 'true');
 
 					<section>
 						<h3>VoiceOver 테스트</h3>
-						<iframe width="100%" height="500" src="http://jsfiddle.net/hohoya33/37ja6u5o/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+						<iframe width="100%" height="500" src="https://jsfiddle.net/hohoya33/37ja6u5o/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 					</section>
 
 
@@ -286,7 +290,7 @@ $('.ctg_mall_lst').on('focusin', '.ctg_top_mn', function(e){
 
 					<section>
 						<h3>VoiceOver 테스트</h3>
-						<iframe width="100%" height="500" src="http://jsfiddle.net/hohoya33/dfewLs2x/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+						<iframe width="100%" height="500" src="https://jsfiddle.net/hohoya33/dfewLs2x/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 					</section>
 
 					<section>
@@ -334,7 +338,7 @@ $('.ctg_mall_lst').on('click', '.ctg_a11y_btn', function(e){
 
 					<section>
 						<h3>VoiceOver 테스트</h3>
-						<iframe width="100%" height="400" src="http://jsfiddle.net/hohoya33/cqh5v13n/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+						<iframe width="100%" height="400" src="https://jsfiddle.net/hohoya33/cqh5v13n/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 					</section>
 
 
@@ -343,17 +347,16 @@ $('.ctg_mall_lst').on('click', '.ctg_a11y_btn', function(e){
 
                         <pre><code class="js">
 $('.ctg_total_layer').on('keydown.a11y', function(e){
-	var sKeyCode = e.sKeyCode || e.which;
-	var bEscKey = sKeyCode === 27;
-
-	if (bEscKey) {
+	if (e.keyCode === 27) { // ESC
 		var aActiveMenu = $('.ctg_mall_lst').find('li.on');
 		var nActive = aActiveMenu.length;
+
 		if (nActive) { //활성화된 메뉴 닫기
 			var welCurrentMenu = $(aActiveMenu.get(nActive - 1));
 			welCurrentMenu.removeClass('on');
 			welCurrentMenu.find('.ctg_a11y_btn').removeClass('on').attr('aria-expanded', 'false');
 			welCurrentMenu.find('>a').focus();
+
 		} else { //카테고리 레이어 닫기
 			$('.ctg_total_layer').hide().attr('aria-hidden', 'true');
 			$('.ctg_open_btn').removeClass('on').attr('aria-expanded', 'false').focus();
@@ -365,7 +368,7 @@ $('.ctg_total_layer').on('keydown.a11y', function(e){
 
 					<section>
 						<h3>최종 결과물</h3>
-						<iframe width="100%" height="300" src="http://jsfiddle.net/hohoya33/3dyozftc/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+						<iframe width="100%" height="300" src="https://jsfiddle.net/hohoya33/3dyozftc/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 					</section>
 
 				</section>
@@ -373,231 +376,220 @@ $('.ctg_total_layer').on('keydown.a11y', function(e){
 
 				<section>
 					<section>
-						<h2>Modals (레이어 팝업)</h2>
+						<h2>레이어 팝업 (Modals)</h2>
 					</section>
 
 					<section>
 						<h2>기존 방식</h2>
 						<ul>
-							<li>레이어 팝업 열림 → 레이어 팝업에 집중 하기 위해 배경을 어둡게 만듬</li>
-							<li>마우스 사용자는 레이어 팝업이 열려 있는 동안 레이어팝업 이외의 나머지 부분과 상호 작용할 수 없음</li>
+							<li>버튼 클릭 → 레이어 팝업 열림</li>
+							<li>레이어 팝업이 활성화되면 나머지 부분은 일반적으로 흐리게 표시</li>
+							<li>외부 컨텐츠와 상호작용 불가능 (본문 차단)</li>
+							<li>레이어 팝업에 집중</li>
+							<li>작업이 끝나면 레이어 팝업 닫기</li>
+						</ul>
+						<p>시각적으로는 모든 동작이 명확하고 사용자는 레이어 팝업과 상호작용</p>
+					</section>
+
+					<section>
+						<iframe width="100%" height="600" src="https://jsfiddle.net/hohoya33/tegyap1x/embedded/result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+					</section>
+
+					<section>
+						<h2>스크린리더 사용자</h2>
+						<ul>
+							<li>버튼 클릭 → 레이어 팝업이 열린다는 정보 인지 불가 (예측 가능성)</li>
+							<li>본문 위 레이어 팝업을 띄웠지만 포커스는 여전히 본문에 위치 (콘텐츠의 논리성)</li>
+							<li>레이어 팝업 닫기 후, 다음 포커스의 위치</li>
+						</ul>
+						<p>모든 사용자가 시각적으로 웹사이트를 볼 수있는 것은 아니므로 접근성 개선 필요</p>
+					</section>
+
+					<section>
+						<h2>접근성 향상</h2>
+						<ul>
+							<li>버튼, 레이어 팝업 → 레이어 팝업을 예측 할 수 있는 적절한 피드백 제공</li>
+							<li>초점의 논리적 이동 → 활성화 시 레이어 팝업 내 포커스 이동,<br>열려있는 동안 내부에서 포커스 트랩 (외부로 탐색 제한)</li>
+							<li>레이어 팝업 닫기 → 열리기 전 마지막 위치했던 포커스로 이동</li>
+						</ul>
+					</section>
+
+
+					<section>
+						<h2>적절한 의미 제공</h2>
+					</section>
+
+
+					<section>
+						<h2>레이어 팝업 버튼</h2>
+						<ul>
+							<li><span style="color:#13daec">aria-haspopup="dialog"</span> 요소에 연결되어 있는 팝업(메뉴, 대화상자 등) 정보를 제공</li>
+							<li>[false|true|menu|listbox|tree|grid|dialog] (ARIA 1.1)</li>
 						</ul>
 
+                        <pre><code class="html">
+<button class="dialog_open" aria-haspopup="dialog">상품 퀵뷰</button>
+                        </code></pre>
 					</section>
-
-					<section>
-						<iframe width="100%" height="600" src="http://jsfiddle.net/hohoya33/tegyap1x/embedded/result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
-					</section>
-
-
-
-
-
-
 
 
 					<section>
-
-						<h2>기본 마크업</h2>
-						<h2>구현 세부 사항</h2>
-						<p>buttons는 대화 상자를 열고 닫는 데 사용되는 반면, 오버레이 및 모달 컨테이너는 내용을 보유</p>
-						<p>aria-controls 및 id속성은 트리거가 각각의 모달 콘텐츠를 제어하고 있음을 명확히합니다.</p>
-						<p>모달은 기본적으로 표시되지 않으므로 aria-hidden="true" </p>
-
-<!--
-modal 컨테이너에 role="dialog"를 지정하면 구성 요소의 기능이 보조 기술을 지원합니다.
-
- 내용이 경고, 오류 또는 경고를 나타내는 경우, 계속하기 전에 사용자의 즉각적인 응답이 필요한 내용을 나타내기 위해 role="arertdialog"를 대신 사용할 수 있습니다.
-
- 모달의 바로 가기 하위 노드에는 role="document"라는 요소가 필요합니다.
- 이를 통해 보조 기술은 문서 검색 모드로 전환되어 모달 콘텐츠에 대한 완전한 액세스를 제공합니다.
-
- 모달의 직접적인 자식 노드는를 가진 요소를 필요로합니다 role="document".
- 이렇게하면 보조 기술이 문서 탐색 모드로 전환하여 모달 콘텐츠에 대한 완전한 액세스를 제공 할 수 있습니다.
-
-
-모달 컨테이너 role="dialog"는 구성 요소의 기능을 보조 기술에 전달합니다.
-콘텐츠가 경고, 오류 또는 경고를 나타내는 경우 role="alertdialog" 계속 진행하기 전에 사용자가 즉각적인 응답을 요구하는 내용을 표시하는데 사용
-
-대화 상자 구현 - 사용자 중심
-여는 경우 모달 내 첫 번째 포커싱 가능한 항목에 포커스가 적용됩니다.
-동시에 Esc키와 오버레이 / 닫기 버튼 클릭 이벤트는 사용자가 대화 상자를 닫을 수 있도록 바인딩됩니다.
-대화 상자가 표시되면 tab키를 사용 하면 주변 페이지의 요소에 포커스가 적용되지 않도록 모달 내의 요소간에 포커스가 유지됩니다.
-마지막으로 문서에서 사용자의 위치를 ​​유지하기 위해 모달을 닫을 때 원래 트리거로 포커스를 되돌릴 수 있습니다.
-
-
-
-aria-labelledby 보조 기술 대화 상자의 제목을 명확하게 정의 하려면 모달 내의 제목과 관련 특성이 모달에 필요합니다.
-보조 기술에 대한 대화 상자의 제목을 명확하게 정의하려면 모달에서 모달과 관련 aria-labelledby 지정 특성 내의 제목이 필요합니다. -->
-
+						<h2>레이어 팝업</h2>
+						<ul>
+							<li><span style="color:#13daec">aria-modal="true|false"</span> 요소가 모달인지 여부를 나타냄 (ARIA 1.1)</li>
+							<li><span style="color:#13daec">aria-labelledby="ID"</span> 속성을 통해 레이어 팝업 제목을 참조 (설명할 다른 참조 요소가 있을 경우)</li>
+							<li><span style="color:#13daec">aria-describedbyon=ID"</span> 레이어 팝업에 대한 설명을 제공</li>
+							<li>&lt;dialog&gt; 요소를 지원하면 role="dialog" 대신 &lt;dialog&gt; 사용 (No support: Safari, Edge Mobile)</li>
+						</ul>
 
                         <pre><code class="html">
-<button class="modal-open" aria-controls="modal">Open</button>
-<div class="modal" id="modal">
-	<div aria-labelledby="modal-title">
-		<div role="document">
-			<h2 id="modal-title">Title</h2>
-			<button class="dmodal-close">Close</button>
-		</div>
+<div id="quick_view" role="dialog" aria-modal="true" aria-labelledby="quick_title">
+	<div role="document">
+		<h2 id="quick_title">제목입니다.</h2>
 	</div>
 </div>
                         </code></pre>
 					</section>
 
 
-
-
 					<section>
-						<h2>tabindex 포커스 제어</h2>
-						<p>요소처럼 p, h2또는 div기본적으로 초점을 맞출 수 없음. tabindex 속성을 추가하여 포커스 가능</p>
-						<p>tabindex HTML 속성을 사용하여 요소의 탭 위치를 설정</p>
-
-						<ul>
-							<li>값이 음수이면 요소는 포커스 가능. 하지만 키보드를 통해 접근불가. 자바스크립트 focus() 메소드</li>
-							<li>0 보다 큰 tbaindex 값 일종의 안티패턴으로 간주</li>
-						</ul>
-
-<!-- Chrome DevTools Lighthouse
-tabindex > 0 will be on top of the tab order
-
-그 요소가 모든것을 뛰어 넘는 것임을 의미 일반적으로 당신은 아마 실제로 사용하고 싶지 않습니다.
- 보다 큰 tbaindex 값 일종의 안티패턴으로 간주
-
-정수값을 tabindex가진 속성을 추가하여 포커스 가능하게 만들 수 있습니다.
-값이 음수이면 요소는 포커스 가능 (e.g. with JavaScript focus())하지만 키보드를 통해 도달 할 수 없습니다.
-보다 큰 값을 사용할 수도 있지만 자연스러운 탭 순서를 변경하고 anti-pattern으로 간주 -->
-
-
-<iframe width="100%" height="300" src="http://jsfiddle.net/hohoya33/kmjsd8qb/38/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+						<h2>초점의 논리적 이동</h2>
 					</section>
 
-					<section>
-						<h2>tabindex  올바른 사용법</h2>
-						<ul>
-							<li>tabindex="-1": 스크립트를 사용하여 요소의 포커스를 설정할 수 있지만 페이지의 탭 순서는 지정 하지 않습니다 . 이것은 스크립트를 통해 또는 사용자 작업 외부에서 업데이트 한 내용으로 포커스를 이동해야 할 때 유용합니다.</li>
-							<li>tabindex="0": 요소를 가져와 포커스를 만들게됩니다. 요소의 위치를 ​​탭 순서로 설정하지 않고 사용자가 DOM을 사용하여 위치에 따라 결정된 순서대로 요소를 포커스 할 수 있습니다.</li>
-							<li>tabindex="1" (또는 임의의 값> 0): tabindex="1"또는 0보다 큰 값 (또는 양수 값)을 설정하지 마십시오 .</li>
-						</ul>
 
+					<section>
+						<h2>포커스 제어</h2>
+						<p>기본적으로 div, h1 요소는 초점을 맞출 수 없음<br>tabindex 속성을 추가하여 포커스 가능</p>
+						<ul>
+							<li><span style="color:#13daec">tabindex="-1"</span> 키보드 tab키를 눌러서 초점을 받을 수 없음. 스크립트 focus() 메서드 사용하여 포커스 가능</li>
+							<li><span style="color:#13daec">tabindex="0"</span> 요소에 포커스 가능. DOM 위치에 따라 순서대로 포커스 이동</li>
+							<li><span style="color:#13daec">tabindex="1"</span> 가장 먼저 초점을 받을 수 있음. 그러나 자연스러운 탭 순서를 방해 (안티패턴)</li>
+						</ul>
 					</section>
 
+
 					<section>
-						<h2>레이어팝업 초점 맞추기</h2>
-						<p>모달 윈도우를 포커스 가능하게 만들고 JavaScript로 포커스를 지정</p>
+						<h2><a href="https://jsfiddle.net/hohoya33/kmjsd8qb/embedded/result" target="_blank">tabindex 테스트</a></h2>
+						<iframe width="100%" height="350" src="https://jsfiddle.net/hohoya33/kmjsd8qb/embedded/result,html,js/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+					</section>
+
+
+					<section>
+						<h2>레이어 팝업 열기</h2>
+						<p>레이어 팝업을 포커스 가능하게 만들고 자바스크립트로 포커스를 지정</p>
+						<!-- <p>레이어 팝업 영역으로 초점 맞추기</p> -->
 
                         <pre><code class="html">
-<!-- tabindex="0" 추가 -->
-<div class="modal" id="modal" tabindex="0">
-
-</div>
-                        </code></pre>
-
-                        <pre><code class="js">
-//focus() 메서드를 사용하여 포커스 설정
-function showModal(){
-  var modal = document.getElementById('modal');
-  modal.focus();
-  //...
-}
-                        </code></pre>
-					</section>
-
-					<section>
-						<h2>레이어팝업 초점 맞추기</h2>
-						<p>모달 윈도우를 포커스 가능하게 만들고 JavaScript로 포커스를 지정</p>
-
-                        <pre><code class="html">
-<!-- tabindex="0" 추가 -->
-<div class="modal" id="modal" tabindex="0">
+<div id="quick_view" role="dialog" aria-modal="true" aria-labelledby="quick_title">
 
 </div>
                         </code></pre>
                         <pre><code class="js">
-// focus() 메서드를 사용하여 포커스 설정
 function showModal() {
-  var modal = document.getElementById('modal');
-  modal.focus();
-  //...
+	$('#quick_view').show().attr('tabindex', '0').focus();
 }
                         </code></pre>
 					</section>
 
 
 					<section>
-						<p>현재 포커스가있는 요소: document.activeElement</p>
+						<h2>레이어 팝업 닫기</h2>
+						<p>레이어 팝업이 닫히면 열기 전 활성화 된 요소로 포커스 반환</p>
 
-Esc 닫기 버튼을 눌러 모달창을 닫으면 초점이 손실됩니다.
-이상적으로 모달창을 열기전의 버튼으로 포커스가 위치
-마지막 포커스요소를 변수에 저장
                         <pre><code class="js">
-// 마지막 포커스가 있는요소를 저장하기위한 변수
-var lastFocusedElement;
+var welLastFocused;
+
 function showModal() {
-  // 마지막 포커스된 요소 저장
-  lastFocusedElement = document.activeElement;
-  var modal = document.getElementById (modalID);
-  modal.focus();
+	// 마지막 포커스된 요소 저장
+	welLastFocused = document.activeElement;
+	$('#quick_view').show().attr('tabindex', '0').focus();
 }
-                        </code></pre>
-					</section>
-
-					<section>
-						<h2>레이어팝업 초점 반환</h2>
-						<p>이제 버튼에 대한 참조가 있으므로 모달 창을 닫을 때 다시 초점을 맞출 수 있습니다.</p>
-
-                        <pre><code class="js">
-function removeModal() {
-  //마지막 포커스를 얻은 요소로 포커스를 반환
-  lastFocusedElement.focus();
+function hideModal() {
+	// 마지막 포커스를 얻은 요소로 포커스를 반환
+	welLastFocused.focus();
+	$('#quick_view').hide().removeAttr('tabindex');
 }
                         </code></pre>
 					</section>
 
 
+					<section>
+						<iframe width="100%" height="600" src="https://jsfiddle.net/hohoya33/zdq15wcv/embedded/result,html,js/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+					</section>
+
 
 					<section>
-						<h2>키보드 트랩</h2>
-						<p>접근성은 현재 나아졌지만 여전히 개선의 여지가 있습니다.</p>
-						<p>모달 창이 열릴 때 포커스를 유지하는 것이 좋습니다. 지금은 여전히 ​​모달에서 탈출 할 수 있습니다. </p>
-						<p>포커스는 활성 상태 인 동안 모달 창에 유지됩니다.</p>
+						<h2>내부에서 포커스 트랩</h2>
+						<p>레이어 팝업 닫지 않으면 포커스가 밖으로 나갈 수 없도록<br>레이어 팝업 내부에서 앞뒤로(tab/shift + tab) 포커스 트랩</p>
+					</section>
 
+
+					<section>
                         <pre><code class="js">
-var firstTabStop = focusableElements[0];
-var lastTabStop = focusableElements[focusableElements.length - 1];
-
+function showModal() {
+	// ...
+	// 활성화 되는 동안 keyup 이벤트
+	$('#quick_view').on('keyup', trapTabKey);
+}
 function trapTabKey(e) {
-    // Check for TAB key press
-    if (e.keyCode === 9) {
-      // SHIFT + TAB
-      if (e.shiftKey) {
-        if (document.activeElement === firstTabStop) {
-          e.preventDefault();
-          lastTabStop.focus();
-        }
+	var aFocusable = $('#quick_view').find('*').filter('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]');
+	var firstTabStop = aFocusable[0]; // 첫번째 요소
+	var lastTabStop = aFocusable[aFocusable.length - 1]; // 마지막 요소
 
-      // TAB
-      } else {
-        if (document.activeElement === lastTabStop) {
-          e.preventDefault();
-          firstTabStop.focus();
-        }
-      }
-    }
-  }
+	if (e.keyCode === 9) {
+		if (e.shiftKey) { // SHIFT + TAB
+
+		} else { // TAB
+
+		}
+	}
+}
                         </code></pre>
 					</section>
 
 
+					<section>
+                        <pre><code class="js">
+function trapTabKey(e) {
+	// ...
+	if (e.keyCode === 9) {
+		if (e.shiftKey) { // SHIFT + TAB
+			if (document.activeElement === firstTabStop) {
+				e.preventDefault();
+				lastTabStop.focus();
+			}
+		} else { // TAB
+			if (document.activeElement === lastTabStop) {
+				e.preventDefault();
+				firstTabStop.focus();
+			}
+		}
+	}
+}
+                        </code></pre>
+					</section>
 
 
+					<section>
+						<h2>레이어 팝업 닫기 (Esc key)</h2>
+						<p>열려있을 때 사용자가 키보드를 통해 레이어 팝업을 쉽게 닫을 수 있도록 기능 추가</p>
+                        <pre><code class="js">
+function trapTabKey(e) {
+	// ...
+   	if (e.keyCode === 27) { // ESC
+		hideModal();
+    }
+}
+                        </code></pre>
+					</section>
+
+
+					<section>
+						<h2>최종 결과물</h2>
+						<iframe width="100%" height="550" src="https://jsfiddle.net/hohoya33/1ugzckyp/embedded/result,html,js/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+					</section>
 
 				</section>
-
-
-
-
-
-
 
 			</div>
 		</div>
