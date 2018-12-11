@@ -41,6 +41,7 @@
 					<ul>
 						<li>카테고리 (Navigation)</li>
 						<li>레이어 팝업 (Modals)</li>
+						<li>툴팁 (Tooltip)</li>
 					</ul>
 				</section>
 
@@ -506,8 +507,8 @@ function hideModal() {
                         <pre><code class="js">
 function showModal() {
 	// ...
-	// 활성화 되는 동안 keyup 이벤트, 닫기 시 이벤트 제거
-	$('#quick_view').on('keyup', trapTabKey);
+	// 활성화 되는 동안 keydown 이벤트, 닫기 시 이벤트 제거
+	$('#quick_view').on('keydown', trapTabKey);
 }
 function trapTabKey(e) {
 	var aFocusable = $('#quick_view').find('*').filter('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]');
@@ -571,6 +572,112 @@ function trapTabKey(e) {
 					</section>
 
 				</section>
+
+
+				<section>
+					<section>
+						<h2>툴팁 (Tooltip)</h2>
+					</section>
+
+					<section>
+						<h2>일반적인 툴팁</h2>
+						<ul>
+							<li>툴팁은 설명을 위해 사용 (누락된 정보 제공)</li>
+							<li>아이콘을 인식하지 못하거나 해독 할 수 없는 사용자는 정보가 누락</li>
+							<li>대부분의 경우 아이콘과 함께 텍스트를 제공</li>
+							<li>하지만 공간이 부족할 경우 툴팁 사용</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>기본 라벨</h2>
+						<p>가장 먼저 툴팁 텍스트를 보조 기기가 접근 할 수있게 만드는 것</p>
+						<ul>
+							<li>툴팁 요소에 <span style="color:#13daec">role="tooltip"</span> 으로 명시</li>
+							<li><span style="color:#13daec">aria-labelledby</span> 속성으로 연관된 컨텐츠와 연결</li>
+						</ul>
+
+						<div><img src="img/tooltip2.png" alt="" width="40%"></div>
+
+
+						<pre><code class="html">
+<button aria-labelledby="cart-label"><img src="img/tooltip_cart.png" alt=""></button>
+<div role="tooltip" id="cart-label">장바구니 담기</div>
+
+<!-- 기능상 단순히 텍스트 사용과 유사 -->
+<button><span class="blind">장바구니 담기</span></button>
+                        </code></pre>
+
+					</section>
+
+
+					<section>
+						<h2>보조 설명</h2>
+						<ul>
+							<li><span style="color:#13daec">aria-describedby</span> 속성으로 연관된 컨텐츠와 연결</li>
+						</ul>
+						<div><img src="img/tooltip.png" alt="" width="40%"></div>
+						<pre><code class="html">
+<button aria-describedby="ad-desc">광고</button>
+<div role="tooltip" id="ad-desc">
+	해피바이러스의 광고구좌를 구매한<br>상품으로 입찰가 순으로 전시됩니다.
+</div>
+                        </code></pre>
+					</section>
+
+
+					<section>
+						<h3>VoiceOver 테스트</h3>
+						<iframe width="100%" height="400" src="https://jsfiddle.net/hohoya33/kradcwo1/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+					</section>
+
+					<section>
+						<h2>툴팁인척 하는 레이어?!</h2>
+						<p>툴팁에 맞출것인가? 레이팝업에 맞출것인가?</p>
+						<div><img src="img/layer_tooltip.png" alt="" width="45%"></div>
+					</section>
+
+					<section>
+						<h2>작업하면 고민했던 내용</h2>
+						<ul>
+							<li>툴팁으로 맞추기는 좀.. 툴팁 내용이 너무 많음</li>
+							<li>그렇다고 레이어 팝업으로 대응하기엔 할게 너무 많음, 오버레이 배경 없음</li>
+							<li>포커스가 레이어안에 계속 존재 해야하는가? (포커스 트랩)</li>
+							<li>닫기 버튼을 어디에 위치 시킬것인가?</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>해결 방법</h2>
+						<ul>
+							<li>aria-expanded, aria-haspopup 속성을 이용해 접근성에 맞게 별도로 구성</li>
+							<li>레이어 팝업 (컨텐츠가 body 부분에 위치)과 달리 툴팁 버튼 아래에 내용이 위치 컨텐트의 논리성</li>
+							<li>닫기 버튼을 맨 처음에 위치하면 바로 닫을 수 있음 이건 esc키 추가시 어디에 위치해도 상관없음</li>
+							<li>닫기 버튼이 있으면 레이어 종료 시 해당 버튼으로 포커스 이동</li>
+						</ul>
+					</section>
+
+
+					<section>
+						<h2>레이어 형식의 툴팁</h2>
+						<pre><code class="html">
+<div class="tooltip">
+	<button class="tooltip-btn" aria-expanded="false" aria-haspopup="true" >button</button>
+	<div class="tooltip-content" aria-labelledby="" aria-hidden="true">
+		<button class="tooltip-close">close</button>
+		// content
+	</div>
+</div>
+                        </code></pre>
+					</section>
+
+					<section>
+						<h2>최종 결과물</h2>
+
+					</section>
+
+				</section>
+
 
 				<section>
 					<h2>감사합니다.</h2>
