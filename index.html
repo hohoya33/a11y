@@ -424,7 +424,7 @@ $('.ctg_total_layer').on('keydown', function(e){
 
                         <pre><code class="html">
 <div id="quick_view" role="dialog" aria-modal="true" aria-labelledby="quick_title">
-	<div role="document">
+	<div class="dialog_content">
 		<h2 id="quick_title">제목입니다.</h2>
 	</div>
 </div>
@@ -499,7 +499,7 @@ function hideModal() {
 
 					<section>
 						<h2>내부에서 포커스 트랩</h2>
-						<p>열린 상태에서 포커스가 밖으로 나갈 수 없도록<br>레이어 팝업 내부에서 앞뒤로(tab/shift + tab) 포커스 트랩</p>
+						<p>열린 상태에서 포커스가 밖으로 나갈 수 없도록<br>레이어 팝업 내부에서 앞 뒤로 포커스를 트랩</p>
 					</section>
 
 					<section>
@@ -515,9 +515,9 @@ function trapTabKey(e) {
 	var lastTabStop = aFocusable[aFocusable.length - 1]; // 마지막 포커스 요소
 
 	if (e.keyCode === 9) {
-		if (e.shiftKey) { // SHIFT + TAB
+		if (e.shiftKey) { // SHIFT + TAB (이전 포커스)
 
-		} else { // TAB
+		} else { // TAB (다음 포커스)
 
 		}
 	}
@@ -585,9 +585,10 @@ $('#firstElement').focusin(function(e) { // 이전 포커스
                         <pre><code class="js">
 function trapTabKey(e) {
 	// ...
-   	if (e.keyCode === 27) { // ESC
+	// ESC
+	if (e.keyCode === 27) {
 		hideModal();
-    }
+	}
 }
                         </code></pre>
 					</section>
@@ -694,9 +695,9 @@ function trapTabKey(e) {
 						<pre><code class="html">
 <div class="tooltip">
 	<!-- aria-haspopup 속성과 함께 aria-controls 속성 사용 -->
-	<button aria-haspopup="true" aria-controls="tooltip-cont" aria-describedby="tooltip-cont" class="tooltip-btn">툴팁 보기</button>
+	<button aria-haspopup="true" aria-controls="tooltip-cont" class="tooltip-btn">툴팁 보기</button>
 
-	<div id="tooltip-cont" aria-labelledby="tooltip-tit" aria-hidden="true" class="tooltip-content">
+	<div id="tooltip-cont" aria-labelledby="tooltip-tit" aria-hidden="true" class="tooltip-content" tabindex="0">
 		<h3 id="tooltip-tit">레이어 형식의 제목</h3>
 		// content
 		<button class="tooltip-close">툴팁 닫기</button>
