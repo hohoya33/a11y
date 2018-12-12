@@ -23,14 +23,14 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<span style="height:4.5em;width:4.5em;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background-color:#000">
+					<span style="height:4.3em;width:4.3em;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background-color:#000">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:100%;fill:#fff">
 							<path d="M12,2c1.1,0,2,0.9,2,2s-0.9,2-2,2s-2-0.9-2-2S10.9,2,12,2z M21,9h-6v13h-2v-6h-2v6H9V9H3V7h18V9z"></path>
 						</svg>
 					</span>
 					<h1 style="margin-bottom:60px">
-						#a11y 웹접근성 개선<br>
-						<span style="font-size:30px">카테고리, 레이어팝업</span>
+						#a11y 웹 접근성 개선<br>
+						<span style="font-size:30px">improving web accessibility</span>
 					</h1>
 					<p>2018. 12. 13</p>
 					<p>IT 개발2팀 UI파트</p>
@@ -378,8 +378,8 @@ $('.ctg_total_layer').on('keydown', function(e){
 					<section>
 						<h2>스크린리더 사용자</h2>
 						<ul>
-							<li>버튼 클릭 → 레이어 팝업이 열린다는 정보 인지 불가 (예측 가능성)</li>
-							<li>본문 위 레이어 팝업을 띄웠지만 포커스는 여전히 본문에 위치 (콘텐츠의 논리성)</li>
+							<li>버튼 클릭 → 레이어 팝업이 열린다는 정보 인지 불가</li>
+							<li>본문 위 레이어 팝업을 띄웠지만 포커스는 여전히 본문에 위치</li>
 							<li>레이어 팝업 닫기 후, 다음 포커스의 위치</li>
 						</ul>
 						<p>모든 사용자가 시각적으로 웹사이트를 볼 수있는 것은 아니므로 접근성 개선 필요</p>
@@ -403,12 +403,12 @@ $('.ctg_total_layer').on('keydown', function(e){
 					<section>
 						<h2>레이어 팝업 버튼</h2>
 						<ul>
-							<li><span style="color:#13daec">aria-haspopup="dialog"</span> 요소에 연결되어 있는 팝업(메뉴, 대화상자 등) 정보를 제공</li>
+							<li><span style="color:#13daec">aria-haspopup="true"</span> 요소에 연결되어 있는 팝업(메뉴, 대화상자) 정보를 제공</li>
 							<li>[false|true|menu|listbox|tree|grid|dialog] (ARIA 1.1)</li>
 						</ul>
 
                         <pre><code class="html">
-<button class="dialog_open" aria-haspopup="dialog">상품 퀵뷰</button>
+<button class="dialog_open" aria-haspopup="true">상품 퀵뷰</button>
                         </code></pre>
 					</section>
 
@@ -419,7 +419,7 @@ $('.ctg_total_layer').on('keydown', function(e){
 							<li><span style="color:#13daec">aria-modal="true|false"</span> 요소가 모달인지 여부를 나타냄 (ARIA 1.1)</li>
 							<li><span style="color:#13daec">aria-labelledby="ID"</span> 속성을 통해 레이어 팝업 제목을 참조 (설명할 다른 참조 요소가 있을 경우)</li>
 							<li><span style="color:#13daec">aria-describedbyon=ID"</span> 레이어 팝업에 대한 설명을 제공</li>
-							<li>&lt;dialog&gt; 요소를 지원하면 role="dialog" 대신 &lt;dialog&gt; 사용 (No support: Safari, Edge Mobile)</li>
+							<li><span style="color:#13daec">&lt;dialog&gt;</span> 요소를 지원하면 role="dialog" 대신 &lt;dialog&gt; 사용 (No support: Safari, Edge Mobile)</li>
 						</ul>
 
                         <pre><code class="html">
@@ -457,7 +457,6 @@ $('.ctg_total_layer').on('keydown', function(e){
 					<section>
 						<h2>레이어 팝업 열기</h2>
 						<p>레이어 팝업을 포커스 가능하게 만들고 자바스크립트로 포커스를 지정</p>
-						<!-- <p>레이어 팝업 영역으로 초점 맞추기</p> -->
 
                         <pre><code class="html">
 <div id="quick_view" role="dialog" aria-modal="true" aria-labelledby="quick_title">
@@ -535,12 +534,12 @@ function trapTabKey(e) {
 		// 포커스 가능 요소가 없으면
 		if (!aFocusable.length) { e.preventDefault(); }
 
-		if (e.shiftKey) { // SHIFT + TAB
+		if (e.shiftKey) { // SHIFT + TAB (이전 포커스)
 			if (document.activeElement === firstTabStop) {
 				e.preventDefault();
 				lastTabStop.focus(); // 마지막 요소로 이동
 			}
-		} else { // TAB
+		} else { // TAB (다음 포커스)
 			if (document.activeElement === lastTabStop) {
 				e.preventDefault();
 				firstTabStop.focus(); // 첫번째 요소로 이동
@@ -549,6 +548,34 @@ function trapTabKey(e) {
 	}
 }
                         </code></pre>
+					</section>
+
+
+					<section>
+						<h2>다른 방법의 포커스 트랩</h2>
+
+                        <pre><code class="html">
+<div id="quick_view" role="dialog" aria-modal="true" aria-labelledby="quick_title">
+	<div id="firstElement" tabindex="0"></div>
+	<a id="firstButton" href="#"><img src="http://item.ssgcdn.com/85/36/55/item/1000030553685_i1_60.jpg" alt="첫번째 상품 이미지"></a>
+	// Content
+	<button id="lastButton" class="dialog_close"><span class="blind">퀵뷰 레이어 팝업 닫기</span></button>
+	<div id="lastElement" tabindex="0"></div>
+</div>
+                        </code></pre>
+                        <pre><code class="js">
+$('#lastElement').focusin(function(e) { // 다음 포커스
+	$('#firstButton').focus(); // 첫번째 요소로 이동
+});
+$('#firstElement').focusin(function(e) { // 이전 포커스
+	$('#lastButton').focus(); // 마지막 요소로 이동
+});
+                        </code></pre>
+					</section>
+
+
+					<section>
+						<iframe width="100%" height="400" src="https://jsfiddle.net/hohoya33/Lp4gh2t9/embedded/result,html,js/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 					</section>
 
 
@@ -628,7 +655,7 @@ function trapTabKey(e) {
 
 					<section>
 						<h3>VoiceOver 테스트</h3>
-						<iframe width="100%" height="400" src="https://jsfiddle.net/hohoya33/kradcwo1/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+						<iframe width="100%" height="340" src="https://jsfiddle.net/hohoya33/kradcwo1/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 					</section>
 
 					<section>
@@ -650,7 +677,7 @@ function trapTabKey(e) {
 					<section>
 						<h2>해결 방법</h2>
 						<ul>
-							<li>aria-expanded, aria-haspopup 속성을 이용해 접근성에 맞게 별도로 구성</li>
+							<li>aria-haspopup 속성을 이용해 접근성에 맞게 별도로 구성</li>
 							<li>레이어 팝업 (컨텐츠가 body 부분에 위치)과 달리 툴팁 버튼 아래에 내용이 위치 컨텐트의 논리성</li>
 							<li>닫기 버튼을 맨 처음에 위치하면 바로 닫을 수 있음 이건 esc키 추가시 어디에 위치해도 상관없음</li>
 							<li>닫기 버튼이 있으면 레이어 종료 시 해당 버튼으로 포커스 이동</li>
@@ -660,12 +687,19 @@ function trapTabKey(e) {
 
 					<section>
 						<h2>레이어 형식의 툴팁</h2>
+						<ul>
+							<li>aria-controls="ID" 속성은 현재 요소가 제어하는 대상을 명시</li>
+							<li>&lt;button&gt; 요소가 무엇을 제어하는지 명시</li>
+						</ul>
 						<pre><code class="html">
 <div class="tooltip">
-	<button class="tooltip-btn" aria-expanded="false" aria-haspopup="true" >button</button>
-	<div class="tooltip-content" aria-labelledby="" aria-hidden="true">
-		<button class="tooltip-close">close</button>
+	<!-- aria-haspopup 속성과 함께 aria-controls 속성 사용 -->
+	<button aria-haspopup="true" aria-controls="tooltip-cont" aria-describedby="tooltip-cont" class="tooltip-btn">툴팁 보기</button>
+
+	<div id="tooltip-cont" aria-labelledby="tooltip-tit" aria-hidden="true" class="tooltip-content">
+		<h3 id="tooltip-tit">레이어 형식의 제목</h3>
 		// content
+		<button class="tooltip-close">툴팁 닫기</button>
 	</div>
 </div>
                         </code></pre>
@@ -673,7 +707,7 @@ function trapTabKey(e) {
 
 					<section>
 						<h2>최종 결과물</h2>
-
+						<iframe width="100%" height="400" src="https://jsfiddle.net/hohoya33/k3w78snh/embedded/result,html,js/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 					</section>
 
 				</section>
