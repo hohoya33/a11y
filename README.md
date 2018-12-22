@@ -103,7 +103,6 @@ role 또는 aria-* 속성을 특정 HTML 요소에 사용할 수 있는지 HTML5
 ## 카테고리 버튼
 - **aria-haspopup="true"** 요소에 팝업 또는 하위 메뉴(컨텍스트 메뉴)를 나타냄
 - **aria-expanded="true|false** 해당 메뉴가 열렸는지 닫혔는지 여부를 알 수 있음
-<img src="img/aria_expanded.png" width="60%" alt="">
 - VoiceOver 테스트 [Demo](https://jsfiddle.net/hohoya33/2mfs3a41/embedded/result,js,html/dark/)
 
 ```html
@@ -111,6 +110,7 @@ role 또는 aria-* 속성을 특정 HTML 요소에 사용할 수 있는지 HTML5
     통합 카테고리 보기
 </button>
 ```
+<img src="img/aria_expanded.png" width="60%" alt="">
 ```js
 $('button').attr('aria-expanded', 'true'); // 레이어 열기
 
