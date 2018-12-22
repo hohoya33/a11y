@@ -110,12 +110,12 @@ role 또는 aria-* 속성을 특정 HTML 요소에 사용할 수 있는지 HTML5
     통합 카테고리 보기
 </button>
 ```
-<img src="img/aria_expanded.png" width="60%" alt="">
 ```js
 $('button').attr('aria-expanded', 'true'); // 레이어 열기
 
 $('button').attr('aria-expanded', 'false'); // 레이어 닫기
 ```
+<img src="img/aria_expanded.png" width="60%" alt="">
 
 ## 의미에 맞는 HTML 사용
 - a 요소는 Enter 키만으로 실행
