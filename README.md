@@ -102,23 +102,20 @@ role 또는 aria-* 속성을 특정 HTML 요소에 사용할 수 있는지 HTML5
 
 ## 카테고리 버튼
 - **aria-haspopup="true"** 요소에 팝업 또는 하위 메뉴(컨텍스트 메뉴)를 나타냄
+- **aria-expanded="true|false** 해당 메뉴가 열렸는지 닫혔는지 여부를 알 수 있음
+<img src="img/aria_expanded.png" width="60%" alt="">
+- VoiceOver 테스트 [Demo](https://jsfiddle.net/hohoya33/2mfs3a41/embedded/result,js,html/dark/)
 
 ```html
 <button aria-haspopup="true" aria-expanded="false">
     통합 카테고리 보기
 </button>
 ```
-- **aria-expanded="true|false** 해당 메뉴가 열렸는지 닫혔는지 여부를 알 수 있음
-<img src="img/aria_expanded.png" width="60%" alt="">
-
 ```js
 $('button').attr('aria-expanded', 'true'); // 레이어 열기
 
 $('button').attr('aria-expanded', 'false'); // 레이어 닫기
 ```
-
-- VoiceOver 테스트 [Demo](https://jsfiddle.net/hohoya33/2mfs3a41/embedded/result,js,html/dark/)
-
 
 ## 의미에 맞는 HTML 사용
 - a 요소는 Enter 키만으로 실행
@@ -130,6 +127,7 @@ $('button').attr('aria-expanded', 'false'); // 레이어 닫기
 ## 카테고리 레이어
 - **aria-hidden="true|false"** 화면에서 숨기면 true, 화면에 표시하면 false
 - true 값을 가지면 스크린리더 접근이 불가능 (포커스를 차단하지 않음)
+- VoiceOver 테스트 [Demo](https://jsfiddle.net/hohoya33/37ja6u5o/embedded/result,html/dark/)
 
 ```html
 <div class="ctg_total_layer" aria-hidden="true" style="display:none">
@@ -141,9 +139,6 @@ $('.ctg_total_layer').show().attr('aria-hidden', 'false'); // 레이어 열림
 
 $('.ctg_total_layer').hide().attr('aria-hidden', 'true'); // 레이어 닫힘
 ```
-
-- VoiceOver 테스트 [Demo](https://jsfiddle.net/hohoya33/37ja6u5o/embedded/result,html/dark/)
-
 
 ## 카테고리 메뉴 (depth. 1)
 - **aria-label="string"** 간결한 설명
@@ -163,15 +158,14 @@ $('.ctg_total_layer').hide().attr('aria-hidden', 'true'); // 레이어 닫힘
 - 해당 메뉴 클릭 시 링크 이동, 마우스 오버 시 하위 메뉴 열림
 - 초점 이동 후, Enter 키 입력 시 링크 이동 되는 문제 (하위 메뉴 접근 불가)
 
-
 ## 해결 방법
 - 하위 메뉴 열기/닫기 버튼을 별도로 추가 (기본 숨김)
 - 키보드 포커스 접근 시 버튼 노출 (탭 키 입력)
 
-
 ## 하위 메뉴 보기 버튼 추가
 - a 태그 aria-label 몰 바로가기 설명 추가
 - 키보드 포커스 접근 시, 하위 메뉴 보기 버튼 활성화
+- VoiceOver 테스트 [Demo](https://jsfiddle.net/hohoya33/dfewLs2x/embedded/result,js,html/dark/)
 
 ```html
 ...
@@ -190,13 +184,11 @@ $('.ctg_mall_lst').on('focusin', '.ctg_top_mn', function(e){
 });
 ```
 
-## VoiceOver 테스트
-- Try the [Demo](https://jsfiddle.net/hohoya33/dfewLs2x/embedded/result,js,html/dark/).
-
 ## 카테고리 하위 메뉴 (depth. 2)
 - **role="menubar"** 일반적으로 가로로 표시되는 메뉴 모음
 - **role="menu"** 사용자에게 선택 목록을 제공하는 유형 (세로방향)
 - **role="menuitem"** menubar 또는 menu 모음에 포함된 옵션 항목
+- VoiceOver 테스트 [Demo](https://jsfiddle.net/hohoya33/cqh5v13n/embedded/result,js,html/dark/)
 
 ```html
 <div class=" ctg_sub_area" aria-hidden="true">
@@ -210,10 +202,6 @@ $('.ctg_mall_lst').on('focusin', '.ctg_top_mn', function(e){
     </ul>
 </div>
 ```
-
-## VoiceOver 테스트
-- Try the [Demo](https://jsfiddle.net/hohoya33/cqh5v13n/embedded/result,js,html/dark/).
-
 
 ## 메뉴 닫기 (Esc key)
 사용자가 키보드를 통해 메뉴를 닫을 수 있도록 기능 추가
@@ -245,7 +233,6 @@ $('.ctg_total_layer').on('keydown', function(e){
 
 ## 기존 방식
 시각적으로는 모든 동작이 명확하고 사용자는 레이어 팝업과 상호작용
-
 - 버튼 클릭 → 레이어 팝업 열림
 - 레이어 팝업이 활성화되면 나머지 부분은 일반적으로 흐리게 표시
 - 외부 컨텐츠와 상호작용 불가능 (본문 차단)
@@ -254,7 +241,6 @@ $('.ctg_total_layer').on('keydown', function(e){
 
 ## 스크린리더 사용자
 모든 사용자가 시각적으로 웹사이트를 볼 수있는 것은 아니므로 접근성 개선 필요
-
 - 버튼 클릭 → 레이어 팝업이 열린다는 정보 인지 불가
 - 본문 위 레이어 팝업을 띄웠지만 포커스는 여전히 본문에 위치
 - 레이어 팝업 닫기 후, 다음 포커스의 위치
@@ -264,7 +250,6 @@ $('.ctg_total_layer').on('keydown', function(e){
 - 버튼, 레이어 팝업 → 레이어 팝업을 예측 할 수 있는 적절한 피드백 제공
 - 초점의 논리적 이동 → 활성화 시 레이어 팝업 내 포커스 이동, 열려있는 동안 내부에서 포커스 트랩 (외부로 탐색 제한)
 - 레이어 팝업 닫기 → 열리기 전 마지막 위치했던 포커스로 이동
-
 
 ## 적절한 의미 제공
 
@@ -317,6 +302,7 @@ function showModal() {
 
 ### 레이어 팝업 닫기
 - 레이어 팝업이 닫히면 열기 전 활성화 된 요소로 포커스 반환
+- Try the [Demo](https://jsfiddle.net/hohoya33/zdq15wcv/embedded/result,html,js/dark/).
 
 ```js
 var welLastFocused;
@@ -332,8 +318,6 @@ function hideModal() {
     $('#quick_view').hide().removeAttr('tabindex');
 }
 ```
-
-- Try the [Demo](https://jsfiddle.net/hohoya33/zdq15wcv/embedded/result,html,js/dark/).
 
 ### 내부에서 포커스 트랩
 열린 상태에서 포커스가 밖으로 나갈 수 없도록 레이어 팝업 내부에서 앞 뒤로 포커스를 트랩
@@ -433,6 +417,7 @@ function trapTabKey(e) {
 <img src="img/tooltip.png" alt="" width="40%">
 
 - aria-describedby 속성으로 연관된 컨텐츠와 연결
+- VoiceOver 테스트 [Demo](https://jsfiddle.net/hohoya33/kradcwo1/embedded/result,html/dark/)
 
 ```html
 <button aria-describedby="ad-desc">광고</button>
@@ -440,9 +425,6 @@ function trapTabKey(e) {
     해피바이러스의 광고구좌를 구매한<br>상품으로 입찰가 순으로 전시됩니다.
 </div>
 ```
-
-## VoiceOver 테스트
-- Try the [Demo](https://jsfiddle.net/hohoya33/kradcwo1/embedded/result,html/dark/).
 
 ## 툴팁인척 하는 레이어?!
 툴팁에 맞출것인가? 레이팝업에 맞출것인가?
