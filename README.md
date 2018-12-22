@@ -2,8 +2,6 @@
 a11y | Accessibility Guidelines 자료 정리
 
 # 웹 접근성 개선
-
-# The Agenda
 - 카테고리 (Navigation)
 - 레이어 팝업 (Modals)
 - 툴팁 (Tooltip)
@@ -13,7 +11,6 @@ a11y | Accessibility Guidelines 자료 정리
 ## 기존 구현 방식
 - 마우스오버 시 하위 메뉴 열림
 - 키보드만으로 조작하기 위해 초점 이동 시 동일하게 구현
-
 - Try the [Demo](https://jsfiddle.net/hohoya33/7vynqbh4/embedded/result/dark/).
 
 ```js
@@ -24,6 +21,7 @@ $('.ctg_mall_lst').on('mouseenter focusin', '.ctg_top_mn', function(e){
 
 ## 카테고리 항목이 늘어나면..🤔
 스크린리더기에 의존하는 사용자, 마우스를 사용할 수 없는 키보드 사용자에게 이러한 기능은 오히려 더 역효과
+
 <img src="img/category_all.png" width="90%" alt="">
 
 ## 초점이동 → 컨텐츠 탐색을 위한 이동
@@ -87,7 +85,6 @@ $('.ctg_mall_lst').on('mouseenter focusin', '.ctg_top_mn', function(e){
 
 ## WAI-ARIA 참고 사항
 role 또는 aria-* 속성을 특정 HTML 요소에 사용할 수 있는지 HTML5 명세를 검토하면서 적용
-
 - HTML 요소에 무분별한 사용 지양
 - 대부분 HTML 요소와 속성을 의미 (사용 최소화)
 - 사용하기 앞서 HTML5 요소로 대체 할 수 있는지 충분히 검토
@@ -102,7 +99,6 @@ role 또는 aria-* 속성을 특정 HTML 요소에 사용할 수 있는지 HTML5
 <!-- Bad -->
 <nav role="navigation">...</nav>
 ```
-
 
 ## 카테고리 버튼
 - **aria-haspopup="true"** 요소에 팝업 또는 하위 메뉴(컨텍스트 메뉴)를 나타냄
@@ -121,8 +117,7 @@ $('button').attr('aria-expanded', 'true'); // 레이어 열기
 $('button').attr('aria-expanded', 'false'); // 레이어 닫기
 ```
 
-## VoiceOver 테스트
-- Try the [Demo](https://jsfiddle.net/hohoya33/2mfs3a41/embedded/result,js,html/dark/).
+- VoiceOver 테스트 [Demo](https://jsfiddle.net/hohoya33/2mfs3a41/embedded/result,js,html/dark/)
 
 
 ## 의미에 맞는 HTML 사용
@@ -147,8 +142,7 @@ $('.ctg_total_layer').show().attr('aria-hidden', 'false'); // 레이어 열림
 $('.ctg_total_layer').hide().attr('aria-hidden', 'true'); // 레이어 닫힘
 ```
 
-## VoiceOver 테스트
-- Try the [Demo](https://jsfiddle.net/hohoya33/37ja6u5o/embedded/result,html/dark/).
+- VoiceOver 테스트 [Demo](https://jsfiddle.net/hohoya33/37ja6u5o/embedded/result,html/dark/)
 
 
 ## 카테고리 메뉴 (depth. 1)
