@@ -215,13 +215,12 @@ $('button').attr('aria-expanded', 'false'); // 레이어 닫기
                         </code></pre>
 
                         <pre><code class="js">
-// 레이어 열림
-$('.ctg_total_layer').show().attr('aria-hidden', 'false');
+$('.ctg_total_layer').show().attr('aria-hidden', 'false'); // 레이어 열림
 
-// 레이어 닫힘
-$('.ctg_total_layer').hide().attr('aria-hidden', 'true');
+$('.ctg_total_layer').hide().attr('aria-hidden', 'true'); // 레이어 닫힘
                         </code></pre>
 					</section>
+
 
 					<section>
 						<h3>VoiceOver 테스트</h3>
@@ -662,7 +661,7 @@ function trapTabKey(e) {
 					<section>
 						<h2>툴팁인척 하는 레이어?!</h2>
 						<p>툴팁에 맞출것인가? 레이팝업에 맞출것인가?</p>
-						<div><img src="img/layer_tooltip.png" alt="" width="45%"></div>
+						<div><img src="img/ex_tooltip.png" alt="" width="80%"></div>
 					</section>
 
 					<section>
@@ -671,16 +670,16 @@ function trapTabKey(e) {
 							<li>툴팁으로 맞추기는 좀.. 툴팁 내용이 너무 많음</li>
 							<li>그렇다고 레이어 팝업으로 대응하기엔 할게 너무 많음, 오버레이 배경 없음</li>
 							<li>포커스가 레이어안에 계속 존재 해야하는가? (포커스 트랩)</li>
-							<li>닫기 버튼을 어디에 위치 시킬것인가?</li>
+							<li>닫기 버튼은 어디에 위치 시킬것인가?</li>
 						</ul>
 					</section>
 
 					<section>
 						<h2>해결 방법</h2>
 						<ul>
-							<li>aria-haspopup 속성을 이용해 접근성에 맞게 별도로 구성</li>
+							<li>aria 속성을 이용해 접근성에 맞게 별도로 구성</li>
 							<li>레이어 팝업 (컨텐츠가 body 부분에 위치)과 달리 툴팁 버튼 아래에 내용이 위치 컨텐트의 논리성</li>
-							<li>닫기 버튼을 맨 처음에 위치하면 바로 닫을 수 있음 이건 esc키 추가시 어디에 위치해도 상관없음</li>
+							<li>닫기 버튼을 맨 처음에 위치하면 바로 닫을 수 있음. esc키 닫기 기능 추가 시 어디에 위치해도 상관없음</li>
 							<li>닫기 버튼이 있으면 레이어 종료 시 해당 버튼으로 포커스 이동</li>
 						</ul>
 					</section>
@@ -694,11 +693,11 @@ function trapTabKey(e) {
 						</ul>
 						<pre><code class="html">
 <div class="tooltip">
-	<!-- aria-haspopup 속성과 함께 aria-controls 속성 사용 -->
-	<button aria-haspopup="true" aria-controls="tooltip-cont" class="tooltip-btn">툴팁 보기</button>
+	<!-- aria-haspopup true를 메뉴로 인식 (센스리더), 컨텐츠 영역 포커스시 사용불가로 음성 노출 -->
+	<button aria-expanded="false" aria-controls="tooltip-cont" class="tooltip-btn">툴팁 보기</button>
 
-	<div id="tooltip-cont" aria-labelledby="tooltip-tit" aria-hidden="true" class="tooltip-content" tabindex="0">
-		<h3 id="tooltip-tit">레이어 형식의 제목</h3>
+	<div id="tooltip-cont" class="tooltip-content" role="dialog" aria-labelledby="tooltip-cont" aria-hidden="true" tabindex="0">
+		<h3>레이어 형식의 제목</h3>
 		// content
 		<button class="tooltip-close">툴팁 닫기</button>
 	</div>
